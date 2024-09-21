@@ -15,11 +15,10 @@ import { twMerge } from "tailwind-merge";
 
 interface InputProps extends TextInputProps {
   Icons?: React.ReactNode;
-  isSecure?: boolean;
 }
 
 const InputField = forwardRef<TextInput, InputProps>(
-  ({ Icons, isSecure, ...prop }, ref) => {
+  ({ Icons, ...prop }, ref) => {
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -42,13 +41,6 @@ const InputField = forwardRef<TextInput, InputProps>(
                 {...prop}
               />
             </View>
-            {isSecure && (
-              <View className="flex items-end p-1.5">
-                <Text className="text-mainColor font-JakartaMedium">
-                  Forgat Password ?
-                </Text>
-              </View>
-            )}
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

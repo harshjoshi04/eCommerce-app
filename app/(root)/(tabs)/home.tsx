@@ -1,30 +1,56 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Logo from "@/assets/images/logo.png";
-import Person from "@/assets/images/person.png";
-import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import ProductBar from "@/components/home/ProductBar";
+import { userContext } from "@/context/userContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "@/components/Header";
 
 const Home = () => {
+  const FilterBar = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Sort",
+        Icon: () => <MaterialIcons name="sort" size={16} color="black" />,
+      },
+      {
+        id: 2,
+        title: "Filter",
+        Icon: () => <AntDesign name="filter" size={16} color="black" />,
+      },
+    ],
+    []
+  );
+
+  // useEffect(() => {
+  //   (async () => {
+  //     AsyncStorage.clear();
+  //   })();
+  // }, []);
   return (
     <SafeAreaView>
       <ScrollView>
-        <View className="flex flex-row items-center justify-between mx-4">
-          <Feather name="menu" size={24} color="black" />
-          <Image source={Logo} className="w-20 h-20" resizeMode="contain" />
-          <Image source={Person} className="w-9 h-9" resizeMode="contain" />
-        </View>
+        <Header />
         <View className="flex flex-row justify-between mx-4">
           <Text className="font-JakartaExtraBold text-lg">All Featured</Text>
-          <View className="flex flex-row items-center gap-2">
-            <View className="flex flex-row items-center gap-1">
-              <MaterialIcons name="sort" size={24} color="black" />
-              <Text>Sort</Text>
-            </View>
-            <Text>Filter</Text>
+          <View className="flex flex-row items-center gap-3">
+            {FilterBar.map(({ id, Icon, title }) => (
+              <View
+                key={id}
+                className="flex flex-row  items-center justify-center gap-1 bg-white rounded-lg p-1 px-2 pb-2"
+              >
+                <Text className="">{title}</Text>
+                <View>
+                  <Icon />
+                </View>
+              </View>
+            ))}
           </View>
         </View>
+        <ProductBar />
       </ScrollView>
     </SafeAreaView>
   );
