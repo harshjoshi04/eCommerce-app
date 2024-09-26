@@ -30,3 +30,11 @@ export const SignInUser = async (data: SignInAuth): Promise<ResponseEntity> => {
     }
     return { status: false, data: null }
 }
+
+
+export const GetProduct = async (): Promise<ResponseEntity> => {
+    const { status, data } = await supabase.from("product").select();
+    if (status == 200)
+        return { status: true, data: data }
+    return { status: false, data: null }
+}
